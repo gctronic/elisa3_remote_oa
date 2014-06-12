@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1402576630 source:g:\lavoro\local-repo\elisaiii-working\pc-side-elisa3-library-obstacle-avoidance\main.c
+	<stdio.h>
+	<sys/types.h>
+	<time.h>
+	"elisa3-lib.h"
+	"windows.h"
+
+1402573098 g:\lavoro\local-repo\elisaiii-working\pc-side-elisa3-library\elisa3-lib.h
+	<stdio.h>
+	<sys/types.h>
+	<math.h>
+	<unistd.h>
+	"usb-comm.h"
+
+1402573096 g:\lavoro\local-repo\elisaiii-working\pc-side-elisa3-library\usb-comm.h
+	<stdio.h>
+
