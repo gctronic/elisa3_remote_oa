@@ -7,6 +7,7 @@
 #endif
 
 #define OBSTACLE_THR 50
+#define NUM_ROBOTS 8
 
 unsigned char updateRGB(char *red, char *green, char *blue) {
     static unsigned int i=0;
@@ -59,33 +60,40 @@ void avoidObstacles(unsigned int *prox, char *left, char *right) {
 
 int main(void) {
 
-    int robotAddress[1];
+    unsigned int k=0;
+    int robotAddress[NUM_ROBOTS];
     // received from robot
-    unsigned int robProx[8] = {0};
+    unsigned int robProx[NUM_ROBOTS][8];
     // sent to robot
-    char robLSpeed=0, robRSpeed=0;
-    char robRedLed=0, robGreenLed=0, robBlueLed=0;
+    char robLSpeed[NUM_ROBOTS], robRSpeed[NUM_ROBOTS];
+    char robRedLed, robGreenLed, robBlueLed;
 
     srand(time(NULL));
 
-    printf("\r\nInsert the robot address: ");
-    scanf("%d", &robotAddress[0]);
+    for(k=0; k<NUM_ROBOTS; k++) {
+        printf("\r\nInsert the robot address %d: ", k);
+        scanf("%d", &robotAddress[k]);
+    }
 
     // init the communication with the robots; set the addresses and number of the robots to control
-    startCommunication(robotAddress, 1);
+    startCommunication(robotAddress, NUM_ROBOTS);
 
     while(1) {
 
-        getAllProximity(robotAddress[0], robProx);
+        getAllProximityFromAll(robProx);
 
-        avoidObstacles(robProx, &robLSpeed, &robRSpeed);
-        setLeftSpeed(robotAddress[0], robLSpeed);
-        setRightSpeed(robotAddress[0], robRSpeed);
+        for(k=0; k<NUM_ROBOTS; k++) {
+            avoidObstacles(robProx[k], &robLSpeed[k], &robRSpeed[k]);
+        }
+        setLeftSpeedForAll(robLSpeed);
+        setRightSpeedForAll(robRSpeed);
 
         if(updateRGB(&robRedLed, &robGreenLed, &robBlueLed)) {
-            setRed(robotAddress[0], robRedLed);
-            setGreen(robotAddress[0], robGreenLed);
-            setBlue(robotAddress[0], robBlueLed);
+            for(k=0; k<NUM_ROBOTS; k++) {
+                setRed(robotAddress[k], robRedLed);
+                setGreen(robotAddress[k], robGreenLed);
+                setBlue(robotAddress[k], robBlueLed);
+            }
         }
 
     }
