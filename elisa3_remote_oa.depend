@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1403077132 source:c:\users\antivirus\desktop\elisa3_remote_oa\main.c
+	<stdio.h>
+	<sys/types.h>
+	<time.h>
+	"elisa3-lib.h"
+	"windows.h"
+
+1614760211 c:\users\antivirus\desktop\elisa3_remote_library\elisa3-lib.h
+	<stdio.h>
+	<sys/types.h>
+	<math.h>
+	<unistd.h>
+	"usb-comm.h"
+
+1614760211 c:\users\antivirus\desktop\elisa3_remote_library\usb-comm.h
+	<stdio.h>
+
